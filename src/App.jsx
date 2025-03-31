@@ -3,7 +3,7 @@ import Navbar from './Components/Navbar/Navbar.jsx';
 import Home from './Components/Home/Home.jsx';
 import Portfolio from './Components/Portfolio/Portfolio.jsx';
 import Body from './Components/Addtask/Body.jsx';
-import './Index.css';
+import './index.css';
 import Login from './Login/Login.jsx';
 
 function App() {
