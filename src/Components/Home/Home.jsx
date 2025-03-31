@@ -96,6 +96,21 @@ const Home = () => {
         <div className="container">
             <h2>Welcome to LifeGrid</h2>
             <p>This your own personalized AI powered task manager and suggester</p>
+            <div className="box">
+                    <input 
+                        type="text" 
+                        placeholder='enter your field of interest' 
+                        onChange={(e) => setsuggestion(e.target.value)}
+                    />
+                    <button onClick={generateTasks} disabled={loading}>
+                        {loading ? 'Loading...' : 'Generate suggestion'}
+                    </button>
+                    <ul className='list'>
+                        {tasks.map((t, i) => (
+                            <li className="sgst" style={{listStyle:"none"}} key={i}>{t.task}</li>
+                        ))}
+                    </ul>
+            </div>
             <div className="taskbar">
                 {goalData.length > 0 ? (
                     goalData.map((goal, index) => (
