@@ -1,0 +1,122 @@
+.container {
+    max-width: 90vw;
+    height: 80vh;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(65, 105, 225, 0.1);
+    flex-wrap: wrap;
+    overflow-y: auto;
+
+}
+.taskbar{
+    margin-top: 20px 10px 20px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 95%;
+    max-height: 90%;
+    background-color: black;
+    overflow-y: scroll;
+    padding: 15px;
+    margin-bottom: 5%;
+    
+}
+.card{
+    width: 15%;
+    max-height: 200px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+
+}
+.box{
+    width: 100%;
+    margin-top: 5px;
+    align-items: center;
+}
+.list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+.sgst {
+    color: black;
+    position: relative;
+    padding: 10px 15px;
+    margin: 10px 0;
+    border-radius: 6px;
+    background: #f0f0f0;
+    overflow: hidden;
+    font-weight: 500;
+  }
+  
+  .sgst::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%; /* Shorter shine band */
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.9),
+      transparent
+    );
+    animation: shine 3s infinite ease-in-out;
+  }
+  .taskbar {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 15px 0;
+  }
+  
+  .card {
+    width: 120px;
+    min-height: 150px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .card h2 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .card p {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 10px;
+  }
+  
+  @keyframes shine {
+    0% {
+      left: -100%;
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      left: 150%;
+      opacity: 0;
+    }
+  }
