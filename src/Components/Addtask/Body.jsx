@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../Navbar/Navbar';
+import Navbar from '../Navbar/Navbar.jsx';
 import './Body.css';
 
 const Body = () => {

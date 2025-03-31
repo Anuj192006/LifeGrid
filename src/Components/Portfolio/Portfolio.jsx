@@ -1,8 +1,7 @@
-// Portfolio.jsx
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar.jsx';
-import './Portfolio.css';
+import './portfolio.css';
 
 const Portfolio = () => {
   const location = useLocation();
