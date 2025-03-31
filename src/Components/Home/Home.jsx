@@ -94,7 +94,8 @@ const Home = () => {
         <>
         <Navbar/>
         <div className="container">
-            
+            <h2>Welcome to LifeGrid</h2>
+            <p>This your own personalized AI powered task manager and suggester</p>
             <div className="taskbar">
                 {goalData.length > 0 ? (
                     goalData.map((goal, index) => (
