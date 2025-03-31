@@ -10,6 +10,11 @@ const Home = () => {
     const userData = JSON.parse(localStorage.getItem('user')) || {};
     const completionPercentages = userData.todos?.map(goal => goal.completionPercentage) || [];
 
+    const goalData = userData.todos?.map(goal => ({
+        name: goal.goalName,
+        percentage: goal.completionPercentage
+    })) || [];
+
     const PieChart = ({ percentage, size = 60 }) => {
         const radius = size / 2 - 5;
         const circumference = 2 * Math.PI * radius;
@@ -87,51 +92,29 @@ const Home = () => {
 
     return (
         <>
-            <Navbar/>
-
-
-            <div className="container">
-                <h1>Welcome to LifeGrid</h1>
-                <p>This is a simple Place to manage your daily tasks.</p>
-
-                <div className="box">
-                    <input 
-                        type="text" 
-                        placeholder='enter your field of interest' 
-                        onChange={(e) => setsuggestion(e.target.value)}
-                    />
-                    <button onClick={generateTasks} disabled={loading}>
-                        {loading ? 'Loading...' : 'Generate suggestion'}
-                    </button>
-                    <ul className='list'>
-                        {tasks.map((t, i) => (
-                            <li className="sgst" style={{listStyle:"none"}} key={i}>{t.task}</li>
-                        ))}
-                    </ul>
-            </div>
-                
-                <div className="taskbar">
-                    {completionPercentages.length > 0 ? (
-                        completionPercentages.map((percent, index) => (
-                            <div className="card" key={index}>
-                                <h2>Goal {index + 1}</h2>
-                                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                    <PieChart percentage={percent} />
-                                </div>
-                                <p>Completed: {percent}%</p>
+        <Navbar/>
+        <div className="container">
+            
+            <div className="taskbar">
+                {goalData.length > 0 ? (
+                    goalData.map((goal, index) => (
+                        <div className="card" key={index}>
+                            <h2>{goal.name}</h2>  
+                            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <PieChart percentage={goal.percentage} />
                             </div>
-                        ))
-                    ) : (
-                        <div className="card">
-                            <h2>No Goals Yet</h2>
-                            <p>Add tasks to see progress</p>
+                            <p>Completed: {goal.percentage}%</p>
                         </div>
-                    )}
-                </div>
-
-
+                    ))
+                ) : (
+                    <div className="card">
+                        <h2>No Goals Yet</h2>
+                        <p>Add tasks to see progress</p>
+                    </div>
+                )}
             </div>
-        </>
+        </div>
+    </>
     );
 };
 
