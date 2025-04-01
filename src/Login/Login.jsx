@@ -10,10 +10,11 @@ const Login = () => {
   const passwordRef = useRef();
   const navigate = useNavigate();
 
-  // Check if user is already logged in
   React.useEffect(() => {
     const user = localStorage.getItem('user');
-    if (user) {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    
+    if (user && isLoggedIn === 'true') {
       navigate('/home');
     }
   }, [navigate]);
@@ -43,6 +44,7 @@ const Login = () => {
         const newUser = { username, password };
         localStorage.setItem('users', JSON.stringify([...existingUsers, newUser]));
         localStorage.setItem('user', JSON.stringify(newUser));
+        localStorage.setItem('isLoggedIn', 'true'); // Add login flag
       } else {
         // Login logic
         const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
@@ -55,6 +57,7 @@ const Login = () => {
         }
 
         localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('isLoggedIn', 'true'); // Add login flag
       }
 
       navigate('/home');
