@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
@@ -10,14 +10,12 @@ const Login = () => {
   const passwordRef = useRef();
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    const user = localStorage.getItem('user');
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    
-    if (user && isLoggedIn === 'true') {
-      navigate('/home');
+  // Initialize localStorage data if empty
+  useEffect(() => {
+    if (!localStorage.getItem('users')) {
+      localStorage.setItem('users', '[]');
     }
-  }, [navigate]);
+  }, []);
 
   const handleAuth = async () => {
     const username = usernameRef.current.value;
@@ -32,22 +30,45 @@ const Login = () => {
     setError(null);
 
     try {
+      // Safely get and parse users data
+      let existingUsers;
+      try {
+        existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
+        if (!Array.isArray(existingUsers)) {
+          throw new Error('Invalid users data format');
+        }
+      } catch (err) {
+        // If data is corrupted, reset to empty array
+        existingUsers = [];
+        localStorage.setItem('users', '[]');
+      }
+
       if (currState === "Sign Up") {
-        // Sign Up logic
-        const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+        // Check if username exists
         const userExists = existingUsers.some(user => user.username === username);
         
         if (userExists) {
           throw new Error("Username already exists");
         }
 
-        const newUser = { username, password };
-        localStorage.setItem('users', JSON.stringify([...existingUsers, newUser]));
+        // Create new user
+        const newUser = { 
+          username, 
+          password, 
+          todos: [] 
+        };
+
+        // Update users list
+        localStorage.setItem(
+          'users', 
+          JSON.stringify([...existingUsers, newUser])
+        );
+
+        // Set as current user
         localStorage.setItem('user', JSON.stringify(newUser));
-        localStorage.setItem('isLoggedIn', 'true'); // Add login flag
+        localStorage.setItem('isLoggedIn', 'true');
       } else {
         // Login logic
-        const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
         const user = existingUsers.find(
           user => user.username === username && user.password === password
         );
@@ -56,7 +77,14 @@ const Login = () => {
           throw new Error("Invalid username or password");
         }
 
-        localStorage.setItem('user', JSON.stringify(user));
+        // Preserve existing todos if available
+        const currentUserData = JSON.parse(localStorage.getItem('user')) || {};
+        const updatedUser = {
+          ...user,
+          todos: currentUserData.todos || []
+        };
+
+        localStorage.setItem('user', JSON.stringify(updatedUser));
         localStorage.setItem('isLoggedIn', 'true');
       }
 

@@ -96,6 +96,7 @@ const Home = () => {
         <div className="container">
             <h2>Welcome to LifeGrid</h2>
             <p>This your own personalized AI powered task manager and suggester</p>
+            <p>Go to <strong> <a href="https://life-grid-45i5.vercel.app/add-task" style={{textDecoration:"none",color:"black"}}> Add Task </a></strong> to get your Goals ready</p>
             <div className="box">
                     <input 
                         type="text" 

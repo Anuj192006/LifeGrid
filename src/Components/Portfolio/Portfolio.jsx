@@ -25,6 +25,14 @@ const Portfolio = () => {
     return Math.round((completedTasks / goal.tasks.length) * 100);
   };
 
+  function handledelete(index){
+    const xuser = { ...userData }
+    xuser.todos = userData.todos.filter((_, i) => i !== index);
+    // console.log(new_data)
+    setUserData(xuser);
+    localStorage.setItem('user', JSON.stringify(xuser));
+    }
+
   useEffect(() => {
     if (userData.todos) {
       const updatedUser = { ...userData };
@@ -51,18 +59,16 @@ const Portfolio = () => {
         <div className="goals-container">
           {userData.todos?.length > 0 ? (
             userData.todos.map((goalCategory, index) => (
-              <div 
-                key={index} 
-                className="goal-card"
-                style={{ minHeight: `${100 + (goalCategory.tasks.length * 20)}px` }}
-              >
+              <div key={index}  className="goal-card" style={{ minHeight: `${100 + (goalCategory.tasks.length * 20)}px` }}>
                 <div className="goal-header">
                   <h2 className="goal-title">{goalCategory.goalName}</h2>
+                  <button className='delete' onClick={()=>handledelete(index)}>Delete</button>
                   <div className="completion-badge">
                     {goalCategory.completionPercentage}%
                   </div>
                 </div>
                 <div className="tasks-list">
+                  
                   {goalCategory.tasks.map((task, taskIndex) => (
                     <div key={taskIndex} className="task-item">
                       <input
@@ -78,6 +84,7 @@ const Portfolio = () => {
                         <p className="task-desc">{task.description}</p>
                       </label>
                     </div>
+                      
                   ))}
                 </div>
                 <div className="goal-meta">
