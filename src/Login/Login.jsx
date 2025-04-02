@@ -57,7 +57,7 @@ const Login = () => {
         }
 
         localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('isLoggedIn', 'true'); // Add login flag
+        localStorage.setItem('isLoggedIn', 'true');
       }
 
       navigate('/home');

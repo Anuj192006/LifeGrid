@@ -13,7 +13,7 @@ const Navbar = () => {
         <Link to="/home" style={{ color: 'white', textDecoration: 'none' }}>LifeGrid</Link>
       </h1>
       <ul>
-        <li><Link to="/" onClick={handleLogout} style={{ color: 'white', textDecoration: 'none' }}>Logout</Link></li>
+        
         <li>
           <Link to="/home" style={{ color: 'white', textDecoration: 'none' }}>Home</Link>
         </li>
@@ -23,6 +23,7 @@ const Navbar = () => {
         <li>
           <Link to="/portfolio" style={{ color: 'white', textDecoration: 'none' }}>Portfolio</Link>
         </li>
+        <li><Link to="/" onClick={handleLogout} style={{ color: 'white', textDecoration: 'none' }}>Logout</Link></li>
       </ul>
     </header>
   );
