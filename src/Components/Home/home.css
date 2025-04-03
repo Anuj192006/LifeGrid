@@ -103,7 +103,26 @@
     color: #666;
     margin-top: 10px;
   }
-  
+  .vid{
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+
+  }
+  .vid-home{
+    max-width: 600px;
+    max-height: 600px;
+  }
+
+@media (max-width: 768px){
+  .vid-home{
+    max-width: 350px;
+    max-height: 350px;
+  }
+}
   @keyframes shine {
     0% {
       left: -100%;

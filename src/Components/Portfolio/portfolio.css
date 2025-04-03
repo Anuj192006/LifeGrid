@@ -168,4 +168,17 @@
     .portfolio-header h1 {
       font-size: 2rem;
     }
+    .goal-card{
+      max-width: 80vw;
+      padding: 10px;
+      flex-wrap: wrap;
+    }
+    .goal-header{
+      justify-content: center;
+
+    }
+    .delete{
+      margin-left: 55px;
+    }
+
   }
