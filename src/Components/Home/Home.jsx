@@ -85,7 +85,7 @@ const Home = () => {
             <div className="vid">
                 <h1>Tutorial To add task</h1>
             <video className="vid-home" controls autoPlay muted loop>
-            <source src='../../../public/demo.mp4' type="video/mp4"/>
+            <source src='demo.mp4' type="video/mp4"/>
             </video>
             </div>
         </div>
