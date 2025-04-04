@@ -30,7 +30,6 @@ const Login = () => {
     setError(null);
 
     try {
-      // Safely get and parse users data
       let existingUsers;
       try {
         existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
@@ -38,13 +37,11 @@ const Login = () => {
           throw new Error('Invalid users data format');
         }
       } catch (err) {
-        // If data is corrupted, reset to empty array
         existingUsers = [];
         localStorage.setItem('users', '[]');
       }
 
       if (currState === "Sign Up") {
-        // Check if username exists
         const userExists = existingUsers.some(user => user.username === username);
         
         if (userExists) {
@@ -58,15 +55,12 @@ const Login = () => {
           todos: [] 
         };
 
-        // Update users list
         localStorage.setItem(
           'users', 
           JSON.stringify([...existingUsers, newUser])
         );
-
-        // Set as current user
-        localStorage.setItem('user', JSON.stringify(newUser));
         localStorage.setItem('isLoggedIn', 'true');
+
       } else {
         // Login logic
         const user = existingUsers.find(

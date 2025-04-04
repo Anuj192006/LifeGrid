@@ -32,9 +32,7 @@ const Body = () => {
             );
             
             const data = await response.json();
-            console.log(data);
             let responseText = data.candidates[0].content.parts[0].text;
-            console.log(responseText);
             
             responseText = responseText.replace(/```javascript|```/g, '');
             const result = JSON.parse(responseText.trim());
@@ -86,6 +84,17 @@ const Body = () => {
         };
 
         localStorage.setItem('user', JSON.stringify(updatedUser));
+        const x= localStorage.getItem('users')
+        const multi_user=JSON.parse(x)
+        let newMultiUser= multi_user.map((ele)=>{
+            if (ele.username===updatedUser.username){
+                return updatedUser
+            }
+            else{
+                return ele
+            }
+        })
+        localStorage.setItem('users',JSON.stringify(newMultiUser))
         navigate('/portfolio', { state: updatedUser });
     };
 
