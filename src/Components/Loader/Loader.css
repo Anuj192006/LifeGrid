@@ -1,0 +1,29 @@
+/* src/Components/Loader/Loader.css */
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    background-color: white;
+}
+
+.loader {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.content {
+    text-align: center;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
