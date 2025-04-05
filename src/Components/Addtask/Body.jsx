@@ -54,8 +54,9 @@ const Body = () => {
         const userData = JSON.parse(localStorage.getItem('user'));
         
         if (!userData) {
-            alert('Please login first!');
-            return;
+            if (confirm('Please login first!')){
+            navigate('/')
+            }
         }
 
         const newCategory = {
