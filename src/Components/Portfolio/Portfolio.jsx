@@ -25,13 +25,12 @@ const Portfolio = () => {
     return Math.round((completedTasks / goal.tasks.length) * 100);
   };
 
-  function handledelete(index){
-    const xuser = { ...userData }
-    xuser.todos = userData.todos.filter((_, i) => i !== index);
-    // console.log(new_data)
-    setUserData(xuser);
-    localStorage.setItem('user', JSON.stringify(xuser));
-    }
+  const handleDelete = (index) => {
+    const updatedUser = { ...userData };
+    updatedUser.todos = userData.todos.filter((_, i) => i !== index);
+    setUserData(updatedUser);
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+  };
 
   useEffect(() => {
     if (userData.todos) {
@@ -47,7 +46,7 @@ const Portfolio = () => {
 
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <div className="main-port">
         <div className="portfolio-header">
           <h1>{userData.username}'s Portfolio</h1>
@@ -55,20 +54,25 @@ const Portfolio = () => {
             Total Completion: {getOverallCompletion(userData.todos)}%
           </p>
         </div>
-        
+
         <div className="goals-container">
           {userData.todos?.length > 0 ? (
             userData.todos.map((goalCategory, index) => (
-              <div key={index}  className="goal-card" style={{ minHeight: `${100 + (goalCategory.tasks.length * 20)}px` }}>
+              <div
+                key={index}
+                className="goal-card"
+                style={{ minHeight: `${100 + goalCategory.tasks.length * 20}px` }}
+              >
                 <div className="goal-header">
                   <h2 className="goal-title">{goalCategory.goalName}</h2>
-                  <button className='delete' onClick={()=>handledelete(index)}>Delete</button>
+                  <button className="delete" onClick={() => handleDelete(index)}>
+                    Delete
+                  </button>
                   <div className="completion-badge">
                     {goalCategory.completionPercentage}%
                   </div>
                 </div>
                 <div className="tasks-list">
-                  
                   {goalCategory.tasks.map((task, taskIndex) => (
                     <div key={taskIndex} className="task-item">
                       <input
@@ -84,7 +88,6 @@ const Portfolio = () => {
                         <p className="task-desc">{task.description}</p>
                       </label>
                     </div>
-                      
                   ))}
                 </div>
                 <div className="goal-meta">
@@ -106,13 +109,13 @@ const Portfolio = () => {
 
 const getOverallCompletion = (todos) => {
   if (!todos || todos.length === 0) return 0;
-  
+
   const totalTasks = todos.reduce((sum, goal) => sum + goal.tasks.length, 0);
   const completedTasks = todos.reduce(
-    (sum, goal) => sum + goal.tasks.filter(task => task.completed).length, 
+    (sum, goal) => sum + goal.tasks.filter(task => task.completed).length,
     0
   );
-  
+
   return Math.round((completedTasks / totalTasks) * 100) || 0;
 };
 

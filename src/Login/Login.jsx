@@ -10,7 +10,6 @@ const Login = () => {
   const passwordRef = useRef();
   const navigate = useNavigate();
 
-  // Initialize localStorage data if empty
   useEffect(() => {
     if (!localStorage.getItem('users')) {
       localStorage.setItem('users', '[]');
@@ -47,22 +46,19 @@ const Login = () => {
         if (userExists) {
           throw new Error("Username already exists");
         }
-
-        // Create new user
         const newUser = { 
           username, 
           password, 
           todos: [] 
         };
-
         localStorage.setItem(
           'users', 
           JSON.stringify([...existingUsers, newUser])
         );
         localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('user', JSON.stringify(newUser));
 
       } else {
-        // Login logic
         const user = existingUsers.find(
           user => user.username === username && user.password === password
         );
@@ -70,18 +66,12 @@ const Login = () => {
         if (!user) {
           throw new Error("Invalid username or password");
         }
-
-        // Preserve existing todos if available
         const currentUserData = JSON.parse(localStorage.getItem('user')) || {};
-        const updatedUser = {
-          ...user,
-          todos: currentUserData.todos || []
-        };
+        const updatedUser = {...user,todos: currentUserData.todos || []};
 
         localStorage.setItem('user', JSON.stringify(updatedUser));
         localStorage.setItem('isLoggedIn', 'true');
       }
-
       navigate('/home');
     } catch (err) {
       setError(err.message);
@@ -93,43 +83,18 @@ const Login = () => {
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={(e) => { e.preventDefault(); handleAuth(); }}>
-        <h2>{currState}</h2>
-        
+        <h2>{currState}</h2>  
         {error && <div className="error-message">{error}</div>}
-        
-        <input 
-          type="text" 
-          placeholder='Username' 
-          className="form-input" 
-          ref={usernameRef}
-          required 
-        />
-        
-        <input 
-          type="password" 
-          placeholder='Password' 
-          className="form-input" 
-          ref={passwordRef}
-          required 
-        />
-        
-        <button 
-          type='submit'
-          className="submit-btn"
-          disabled={loading}
-        >
+        <input type="text" placeholder='Username' className="form-input" ref={usernameRef}required />
+        <input type="password" placeholder='Password' className="form-input" ref={passwordRef} required/>
+        <button type='submit'className="submit-btn" disabled={loading}>
           {loading ? 'Processing...' : currState === "Sign Up" ? "Create account" : "Login"}
         </button>
-        
         <div className="login-toggle">
-          {currState === "Sign Up" ? (
-            <p>
-              Already have an account? <span onClick={() => setCurrState("Login")}>Login here</span>
-            </p>
-          ) : (
-            <p>
-              Don't have an account? <span onClick={() => setCurrState("Sign Up")}>Sign up</span>
-            </p>
+          {currState === "Sign Up" ? 
+          (<p>Already have an account? <span onClick={() => setCurrState("Login")}>Login here</span></p>)
+            : 
+          (<p> Don't have an account? <span onClick={() => setCurrState("Sign Up")}>Sign up</span></p>
           )}
         </div>
       </form>

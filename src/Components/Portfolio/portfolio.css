@@ -159,7 +159,7 @@
     font-size: 1.2rem;
   }
   
-  /* Responsive adjustments */
+
   @media (max-width: 768px) {
     .goals-container {
       grid-template-columns: 1fr;
